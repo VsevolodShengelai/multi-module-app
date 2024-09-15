@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: vsevolodshengelay/api-gateway:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVICE_A_URL
+              value: http://service-a:8081/service-a
+            - name: SERVICE_B_URL
+              value: http://service-b:8082/service-b
